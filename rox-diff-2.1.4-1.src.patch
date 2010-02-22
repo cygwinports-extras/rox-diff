@@ -1,0 +1,30 @@
+--- origsrc/Diff/AppRun	2004-11-21 07:11:28.000000000 -0600
++++ src/Diff/AppRun	2009-10-19 20:48:54.272836400 -0500
+@@ -5,6 +5,8 @@ PROG=Diff
+ APP_DIR="`dirname $0`"
+ APP_DIR="`cd $APP_DIR;pwd`"; export APP_DIR
+ 
++export PLATFORM="CYGWIN-ix86"
++
+ if [ x"$PLATFORM" = x ]; then
+   ARCH="`uname -m`"
+   case $ARCH in
+@@ -18,7 +20,7 @@ if [ "x$MAKE" = x ]; then
+   MAKE=make export MAKE
+ fi
+ 
+-ROX_CLIB=`"$APP_DIR/libdir" --0install www.kerofin.demon.co.uk ROX-CLib`/AppRun
++ROX_CLIB=/usr/lib/rox/ROX-CLib/AppRun
+ if [ -z "$LD_LIBRARY_PATH" ]; then
+     LD_LIBRARY_PATH=`"$ROX_CLIB" --runtime`
+ else
+--- origsrc/Diff/src/main.c	2006-03-07 13:23:34.000000000 -0600
++++ src/Diff/src/main.c	2009-10-19 21:02:38.657974800 -0500
+@@ -20,6 +20,7 @@
+ 
+ #include <sys/types.h>
+ #include <sys/wait.h>
++#include <sys/socket.h>
+ #include <sys/ioctl.h>
+ #ifdef HAVE_SYS_FILIO_H
+ #include <sys/filio.h>
